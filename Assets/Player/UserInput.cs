@@ -104,7 +104,7 @@ public class UserInput : MonoBehaviour {
 					WorldObject worldObject = hitObject.transform.root.GetComponent<WorldObject>();
 					if(worldObject){
 						_player.SelectedObject = worldObject;
-						worldObject.SetSelections(true);
+						worldObject.SetSelections(true, _player.hud.GetPlayingArea());
 					}
 				}
 			}
@@ -114,7 +114,7 @@ public class UserInput : MonoBehaviour {
 	void RightMouseClick ()
 	{
 		if (_player.hud.MouseInBounds () && !Input.GetKey (KeyCode.LeftAlt) && _player.SelectedObject) {
-			_player.SelectedObject.SetSelections(false);
+			_player.SelectedObject.SetSelections(false, _player.hud.GetPlayingArea());
 			_player.SelectedObject = null;
 		}
 	}

@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RTS;
 
 public class HUD : MonoBehaviour {
 
 	private const int ORDERS_BAR_WIDTH = 150, RESOURCE_BAR_HEIGHT = 40, SELECTION_NAME_HEIGHT = 15;
 	private Player _player;
 
-	public GUISkin resourceSkin, ordersSkin;
+	public GUISkin resourceSkin, ordersSkin, selectBoxSkin;
 	// Use this for initialization
 	void Start () {
 		_player = transform.root.GetComponent<Player> ();
+		ResourceManager.StoreSelectBoxItem (selectBoxSkin);
 	}
 	
 	// Update is called once per frame
@@ -19,6 +21,10 @@ public class HUD : MonoBehaviour {
 			DrawOrdersBar();
 			DrawResourceBar();
 		}
+	}
+
+	public Rect GetPlayingArea(){
+		return new Rect (0, RESOURCE_BAR_HEIGHT, Screen.width - ORDERS_BAR_WIDTH, Screen.height - RESOURCE_BAR_HEIGHT);
 	}
 
 	private void DrawOrdersBar ()
