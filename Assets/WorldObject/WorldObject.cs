@@ -73,13 +73,13 @@ public class WorldObject : MonoBehaviour {
 	public virtual void MouseClick(GameObject hitObject, Vector3 hitPoint, Player controller){
 		//only handle input if currently selected
 		if (currentlySelected && hitObject && hitObject.name != "Ground") {
-			WorldObject worldObject = hitObject.transform.root.GetComponent<WorldObject>();
+			WorldObject worldObject = hitObject.transform.parent.GetComponent<WorldObject>();
 			//clicked another selectable object
 			if(worldObject) ChangeSelection(worldObject, controller);
 		}
 	}
 
-	void ChangeSelection (WorldObject worldObject, Player controller)
+	private void ChangeSelection (WorldObject worldObject, Player controller)
 	{
 		//this should be called by the following line, but there is an outside change it will not
 		SetSelections (true, playingArea);
@@ -87,5 +87,13 @@ public class WorldObject : MonoBehaviour {
 			controller.SelectedObject.SetSelections (false, playingArea);
 		controller.SelectedObject = worldObject;
 		worldObject.SetSelections (true, controller.hud.GetPlayingArea());
+	}
+
+	public virtual void SetHoverState(GameObject hoverObject){
+		//only handle input if owned by human and currently select
+		if (player && player.Human && currentlySelected) {
+			if(hoverObject.name != "Ground") 
+				player.hud.SetCursorState(CursorState.Select);
+		}
 	}
 }
