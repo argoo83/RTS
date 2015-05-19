@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using RTS;
 
 public class Unit : WorldObject {
 
 	protected bool moving, rotating;
 	public float moveSpeed, rotateSpeed;
+
 	private Vector3 destination;
 	private Quaternion targetRotation;
 
